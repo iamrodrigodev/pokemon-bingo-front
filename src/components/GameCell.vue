@@ -1,22 +1,16 @@
 <template>
   <div
-    style="
-      display: flex;
-      align-content: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      cursor: pointer;
-    "
-    :class="{ isSelected }"
+    class="flex flex-col items-center justify-center cursor-pointer rounded-lg p-2 sm:p-4 w-full aspect-square bg-slate-100 transition-colors duration-200"
+    :class="isSelected ? '!bg-[#73b7ff] shadow-inner' : 'hover:bg-slate-200 shadow'"
     @click="store?.toggleCell(index)"
   >
     <img
       v-if="pokemon"
       :src="imgUrl"
-      style="max-width: 70%; max-height: 70%; margin: 0 auto; display: block"
+      class="max-w-[70%] max-h-[70%] object-contain mx-auto"
       :alt="pokemon.name"
     />
-    <div v-if="pokemon" style="width: 100%; margin-top: 5px; text-transform: capitalize">
+    <div v-if="pokemon" class="w-full mt-2 capitalize text-xs sm:text-base font-medium text-slate-700">
       {{ pokemon.name }}
     </div>
   </div>
@@ -47,8 +41,3 @@ const isSelected = computed<boolean>(() => {
   return store?.state.selected.includes(props.index) ?? false;
 });
 </script>
-<style>
-.isSelected {
-  background: #73b7ff !important;
-}
-</style>
