@@ -1,15 +1,13 @@
 <template>
-  <div class="box" style="display: inline-block">
+  <div class="box w-full max-w-3xl mx-auto mt-4 p-2 sm:p-4 inline-block">
     <div
-      v-for="i in dimensions[0]"
-      :key="i"
-      :style="`display: flex; margin: 0 auto; width: ${size * dimensions[1] + dimensions[1] * 5}px`"
+      class="grid grid-cols-4 gap-2 sm:gap-4 place-items-center"
+      :style="`grid-template-columns: repeat(${dimensions[1]}, minmax(0, 1fr))`"
     >
       <game-cell
-        v-for="n in dimensions[1]"
+        v-for="n in dimensions[0] * dimensions[1]"
         :key="n"
-        :style="`margin: 5px; background: #eee; width: ${size}px; height: ${size}px`"
-        :index="n + (i - 1) * dimensions[0]"
+        :index="n"
         :n="n"
       />
     </div>
@@ -20,6 +18,6 @@ import GameCell from '@/components/GameCell.vue';
 import { ref } from 'vue';
 import type { Ref } from 'vue';
 
+// dimensions[0] = rows, dimensions[1] = cols
 const dimensions: Ref<[number, number]> = ref([4, 4]);
-const size: Ref<number> = ref(160);
 </script>
