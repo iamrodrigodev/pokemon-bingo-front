@@ -1,55 +1,47 @@
 <template>
-  <div class="admin" style="margin: 0 auto; margin-top: 30px; max-width: 900px">
-    <button @click="store?.call()">
+  <div class="admin max-w-5xl mx-auto mt-8 px-4 w-full">
+    <button class="w-full sm:w-auto px-8 py-3 text-2xl text-[#3c68ac] bg-[#f8cc46] border-4 border-[#3c68ac] rounded-lg uppercase font-bold cursor-pointer hover:bg-yellow-400 transition-colors shadow-lg" @click="store?.call()">
       {{ lastCalled ? 'Next Pokemon' : 'Start Game' }}
     </button>
 
-    <div
-      class="box"
-      style="display: flex; max-width: 1200px; margin: 30px auto; justify-content: center"
-    >
-      <div class="next-up" style="width: 70%; font-size: 2.5rem">
-        <div v-if="lastCalled">
-          <h1 style="text-transform: capitalize; margin: 0">
+    <div class="box flex flex-col md:flex-row max-w-5xl mx-auto mt-8 md:justify-between items-start gap-8">
+      <div class="next-up w-full md:w-2/3 text-4xl flex flex-col items-center">
+        <div v-if="lastCalled" class="w-full flex flex-col items-center">
+          <h1 class="capitalize m-0 font-bold text-slate-800 mb-4 text-center">
             {{ lastCalled.name }}
           </h1>
           <img
             :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${lastCalled.id}.svg`"
             :alt="lastCalled.name"
-            style="height: 375px; max-width: 100%"
+            class="h-[250px] sm:h-[375px] max-w-full object-contain drop-shadow-xl"
           />
         </div>
       </div>
 
-      <div
-        class="running-list"
-        style="height: 550px; overflow: auto; background: #eee; margin-left: 30px; width: 300px"
-      >
-        <input
-          type="text"
-          v-model="search"
-          placeholder="Search"
-          style="
-            font-size: 1rem;
-            display: block;
-            padding: 10px;
-            width: calc(100% - 4px);
-            margin: 2px;
-          "
-        />
-        <ul style="margin: 0 auto; padding: 20px; list-style: none">
-          <li v-if="!filtered.length">No pokemon called yet</li>
+      <div class="running-list w-full md:w-1/3 h-[400px] md:h-[550px] overflow-auto bg-slate-100 rounded-lg shadow-inner flex flex-col">
+        <div class="p-2 sticky top-0 bg-slate-100 border-b border-slate-200">
+          <input
+            type="text"
+            v-model="search"
+            placeholder="Search called Pokemon..."
+            class="w-full p-3 text-base rounded border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <ul class="m-0 p-4 list-none flex-grow">
+          <li v-if="!filtered.length" class="text-slate-500 text-center mt-4">
+            No pokemon called yet
+          </li>
           <li
             v-for="pokemon in filtered"
             :key="pokemon.id"
-            style="display: flex; align-items: center; margin-bottom: 20px"
+            class="flex items-center mb-4 bg-white p-2 rounded shadow-sm"
           >
             <img
               :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`"
               :alt="pokemon.name"
-              width="60"
+              class="w-12 h-12 object-contain"
             />
-            <span style="display: inline-block; margin-left: 10px; text-transform: capitalize">
+            <span class="inline-block ml-4 capitalize font-semibold text-slate-700 text-lg">
               {{ pokemon.name }}
             </span>
           </li>
@@ -87,17 +79,3 @@ const lastCalled = computed<Pokemon | null>(() => {
   return called[called.length - 1];
 });
 </script>
-
-<style>
-button {
-  padding: 10px;
-  font-size: 1.5rem;
-  color: #3c68ac;
-  background: #f8cc46;
-  border: 3px solid #3c68ac;
-  border-radius: 5px;
-  text-transform: uppercase;
-  font-weight: bold;
-  cursor: pointer;
-}
-</style>
