@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@layer base {
+  html, body {
+    @apply min-h-screen m-0 p-0 font-sans text-slate-800;
+  }
+  body {
+    background: url('/bg.jpg') no-repeat !important;
+    background-size: cover !important;
+    background-position: center bottom !important;
+  }
+}
+
+@layer components {
+  .box {
+    @apply bg-white rounded-lg p-3 shadow-md;
+  }
+}
